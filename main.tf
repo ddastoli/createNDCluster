@@ -47,7 +47,8 @@ data "vsphere_ovf_vm_template" "ovfRemote" {
 
 ## Deployment of VM from Remote OVF
 resource "vsphere_virtual_machine" "vmFromRemoteOvf" {
-  name                 = "ND"
+  for_each             = var.vm_list
+  name                 = each.value.vm_name
   datacenter_id        = data.vsphere_datacenter.vsphere_dc.id
   datastore_id         = data.vsphere_datastore.vsphere_ds.id
   host_system_id       = data.vsphere_host.host.id
@@ -77,11 +78,11 @@ resource "vsphere_virtual_machine" "vmFromRemoteOvf" {
 
   vapp {
     properties = {
-      "dataDiskSize"  = "500",
-      "com.cisco.acisn.mgmt_ip" = "10.48.170.109/24",
-      "com.cisco.acisn.gw_ip"   = "172.16.11.1",
-      "com.cisco.acisn.adminPassword"       = "ins3965!",
-      "com.cisco.acisn.firstMaster"       = "True"
+      "dataDiskSizeApp"  = "500",
+      "mgmt_ip" = each.value.vm_network_ip,
+      "gw_ip"   = "10.48.170.1",
+      "adminPassword"       = "ins3965!",
+      "firstMaster"       = each.value.vm_firstMaster
     }
   }
   lifecycle {
