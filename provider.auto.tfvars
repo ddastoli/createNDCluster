@@ -1,3 +1,3 @@
-vsphere_username = "administrator@dom.local"
-vsphere_password = "C!sc0123"
-vsphere_server   = "10.48.170.23"
+vsphere_username = "_user"
+vsphere_password = "_password"
+vsphere_server   = "_IP"
