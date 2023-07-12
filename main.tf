@@ -60,12 +60,12 @@ resource "vsphere_virtual_machine" "vmFromRemoteOvf" {
   firmware             = data.vsphere_ovf_vm_template.ovfRemote.firmware
   scsi_type            = data.vsphere_ovf_vm_template.ovfRemote.scsi_type
   nested_hv_enabled    = data.vsphere_ovf_vm_template.ovfRemote.nested_hv_enabled
-  dynamic "network_interface" {
-    for_each = data.vsphere_ovf_vm_template.ovfRemote.ovf_network_map
-    content {
-      network_id = network_interface.value
-    }
-  }
+  #dynamic "network_interface" {
+  #  for_each = data.vsphere_ovf_vm_template.ovfRemote.ovf_network_map
+  #  content {
+  #    network_id = network_interface.value
+  #  }
+  #}
   wait_for_guest_net_timeout = 0
   wait_for_guest_ip_timeout  = 0
 
@@ -73,7 +73,11 @@ resource "vsphere_virtual_machine" "vmFromRemoteOvf" {
     allow_unverified_ssl_cert = false
     remote_ovf_url            = data.vsphere_ovf_vm_template.ovfRemote.remote_ovf_url
     disk_provisioning         = data.vsphere_ovf_vm_template.ovfRemote.disk_provisioning
-    ovf_network_map           = data.vsphere_ovf_vm_template.ovfRemote.ovf_network_map
+    ovf_network_map           = {
+      "Network 1" = data.vsphere_network.vm_portgroup.id
+      "Network 2" = data.vsphere_network.vm_portgroup.id
+    }
+    #ovf_network_map           = data.vsphere_ovf_vm_template.ovfRemote.ovf_network_map
   }
 
   vapp {
