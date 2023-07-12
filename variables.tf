@@ -31,12 +31,21 @@ variable "host" {
     default = null 
     }
 
-variable "vm_template" {
+variable "vm_portgroup1" {
     description = "VM Template name that will be cloned to create the new VM"
 }
 
-variable "vm_name" {
-    description = "VM Name"
+variable "vm_portgroup2" {
+    description = "VM Template name that will be cloned to create the new VM"
+}
+
+variable "vm_list" {
+  type = map(object({
+    vm_name            = string
+    vm_network_ip      = string
+    vm_network_gateway = string
+    vm_firstMaster     = bool
+  }))
 }
 
 variable "vm_folder" {
@@ -46,18 +55,6 @@ variable "vm_folder" {
 variable "vm_domain" {
   description = "Domain name to be configured in the VM. Optional, if ommited lab.local will be used"
   default = "lab.local"
-}
-
-variable "vm_network_ip" {
-    description = "IP address to be assigned to the VM interface"
-}
-
-variable "vm_network_mask" {
-    description = "Mask length to be used for VM interface IP address"
-}
-
-variable "vm_network_gateway" {
-    description = "Default gateway to be configured in VM network settings"
 }
 
 variable "vm_portgroup" {

@@ -17,13 +17,13 @@ data "vsphere_compute_cluster" "cluster" {
   datacenter_id = "${data.vsphere_datacenter.vsphere_dc.id}"
 }
 
-data "vsphere_network" "vm_portgroup" {
-  name            = var.vm_portgroup
+data "vsphere_network" "vm_portgroup1" {
+  name            = var.vm_portgroup1
   datacenter_id = data.vsphere_datacenter.vsphere_dc.id
 }
 
-data "vsphere_virtual_machine" "template" {
-  name          = var.vm_template
+data "vsphere_network" "vm_portgroup2" {
+  name            = var.vm_portgroup2
   datacenter_id = data.vsphere_datacenter.vsphere_dc.id
 }
 
@@ -40,7 +40,8 @@ data "vsphere_ovf_vm_template" "ovfRemote" {
   host_system_id    = data.vsphere_host.host.id
   remote_ovf_url    = "http://aci-artifactory-001.insieme.local:8082/artifactory/atom-bld/releases/nd/v3.0.0.209/nd-dk9.3.0.0.209.ova"
   ovf_network_map = {
-    "VM Network" : data.vsphere_network.vm_portgroup.id
+    "VM Network" : data.vsphere_network.vm_portgroup1.id
+    "VM Network" : data.vsphere_network.vm_portgroup2.id
   }
 }
 
@@ -60,12 +61,12 @@ resource "vsphere_virtual_machine" "vmFromRemoteOvf" {
   firmware             = data.vsphere_ovf_vm_template.ovfRemote.firmware
   scsi_type            = data.vsphere_ovf_vm_template.ovfRemote.scsi_type
   nested_hv_enabled    = data.vsphere_ovf_vm_template.ovfRemote.nested_hv_enabled
-  #dynamic "network_interface" {
-  #  for_each = data.vsphere_ovf_vm_template.ovfRemote.ovf_network_map
-  #  content {
-  #    network_id = network_interface.value
-  #  }
-  #}
+  dynamic "network_interface" {
+    for_each = data.vsphere_ovf_vm_template.ovfRemote.ovf_network_map
+    content {
+      network_id = network_interface.value
+    }
+  }
   wait_for_guest_net_timeout = 0
   wait_for_guest_ip_timeout  = 0
 
@@ -74,8 +75,8 @@ resource "vsphere_virtual_machine" "vmFromRemoteOvf" {
     remote_ovf_url            = data.vsphere_ovf_vm_template.ovfRemote.remote_ovf_url
     disk_provisioning         = data.vsphere_ovf_vm_template.ovfRemote.disk_provisioning
     ovf_network_map           = {
-      "Network 1" = data.vsphere_network.vm_portgroup.id
-      "Network 2" = data.vsphere_network.vm_portgroup.id
+      "Network 1" = data.vsphere_network.vm_portgroup1.id
+      "Network 2" = data.vsphere_network.vm_portgroup2.id
     }
     #ovf_network_map           = data.vsphere_ovf_vm_template.ovfRemote.ovf_network_map
   }
@@ -84,7 +85,7 @@ resource "vsphere_virtual_machine" "vmFromRemoteOvf" {
     properties = {
       "dataDiskSizeApp"  = "500",
       "mgmt_ip" = each.value.vm_network_ip,
-      "gw_ip"   = "10.48.170.1",
+      "gw_ip"   = each.value.vm_network_gateway,
       "adminPassword"       = "ins3965!",
       "firstMaster"       = each.value.vm_firstMaster
     }
