@@ -1,11 +1,10 @@
 # vSphere variables
-vsphere_dc          = "DC1"
-vsphere_ds          = "datastorem4"
+vsphere_dc          = "DatacenterACI"
+vsphere_ds          = "Server2_M6_disk2"
 cluster     = "Edge"
-vm_folder   = "CiscoLive"
-host = "dom-esxi-m4-4.cisco.com"
+host = "10.48.170.87"
 vm_portgroup1 = "VM Network"
-vm_portgroup2 = "VM Network"
+vm_portgroup2 = "vND_Data"
 
 # List of VMs to deploy in the scenario
 vm_list = {
