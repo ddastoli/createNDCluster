@@ -3,6 +3,10 @@ variable "vsphere_server" {
   description = "vSphere vCenter URL"
 }
 
+variable "cluster" {
+    description = "Cluster name in vSphere vCenter where the VM will be deployed"
+}
+
 variable "vsphere_username" {
   type        = string
   description = "vSphere vCenter username"
@@ -22,14 +26,10 @@ variable "vsphere_ds" {
     description = "Datastore name in vSphere vCenter where the VM will be stored"
 }
 
-variable "cluster" {
-    description = "Cluster name in vSphere vCenter where the VM will be deployed"
-}
-
 variable "host" { 
     description = "Host name in vSphere vCenter where the VM will be deployed. Optional, if ommited the host will be selected automatically"
     default = null 
-    }
+}
 
 variable "vm_portgroup1" {
     description = "VM Template name that will be cloned to create the new VM"
@@ -46,10 +46,6 @@ variable "vm_list" {
     vm_network_gateway = string
     vm_firstMaster     = bool
   }))
-}
-
-variable "vm_folder" {
-    description = "Folder where the new VM will be placed within the Datacenter in vSphere vCenter"
 }
 
 variable "vm_domain" {
