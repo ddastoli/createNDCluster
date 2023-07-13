@@ -86,7 +86,7 @@ resource "vsphere_virtual_machine" "vmFromRemoteOvf" {
       "dataDiskSizeApp"  = "500",
       "mgmt_ip" = each.value.vm_network_ip,
       "gw_ip"   = each.value.vm_network_gateway,
-      "adminPassword"       = "ins3965!",
+      "adminPassword"       = var.nd_password
     }
   }
   lifecycle {

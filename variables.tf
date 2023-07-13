@@ -3,6 +3,11 @@ variable "vsphere_server" {
   description = "vSphere vCenter URL"
 }
 
+variable "nd_password" {
+  description = "The password for the DB master user"
+  type        = string
+}
+
 variable "cluster" {
     description = "Cluster name in vSphere vCenter where the VM will be deployed"
 }
