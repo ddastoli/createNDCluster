@@ -1,0 +1,450 @@
+{
+	"info": {
+		"_postman_id": "75a83948-408b-4d27-9d3d-0923e262a9ae",
+		"name": "ND Cluster Setup",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "582543"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"userName\": \"{{nd_username}}\",\n  \"userPasswd\": \"{{nd_passwd}}\",\n  \"domain\": \"{{nd_domain}}\",\n  \"uiLogin\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{nd_host1}}/login",
+					"protocol": "https",
+					"host": [
+						"{{nd_host1}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Node0 Information",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Save Node2 SN",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.collectionVariables.set(\"SerialNumber_Node1\", jsonData.SerialNumber);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"vnode\", \n    \"ipAddress\": \"{{nd_host1}}\", \n    \"loginUser\": \"rescue-user\", \n    \"loginPassword\": \"{{nd_passwd}}\"\n}"
+				},
+				"url": {
+					"raw": "https://{{nd_host1}}/bootstrap/verifynode",
+					"protocol": "https",
+					"host": [
+						"{{nd_host1}}"
+					],
+					"path": [
+						"bootstrap",
+						"verifynode"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Node1 Information",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Save Node2 SN",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.collectionVariables.set(\"SerialNumber_Node2\", jsonData.SerialNumber);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"vnode\", \n    \"ipAddress\": \"{{nd_host2}}\", \n    \"loginUser\": \"rescue-user\", \n    \"loginPassword\": \"{{nd_passwd}}\"\n}"
+				},
+				"url": {
+					"raw": "https://{{nd_host1}}/bootstrap/verifynode",
+					"protocol": "https",
+					"host": [
+						"{{nd_host1}}"
+					],
+					"path": [
+						"bootstrap",
+						"verifynode"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Node2 Information",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Save Node2 SN",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.collectionVariables.set(\"SerialNumber_Node3\", jsonData.SerialNumber);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"vnode\", \n    \"ipAddress\": \"{{nd_host3}}\", \n    \"loginUser\": \"rescue-user\", \n    \"loginPassword\": \"{{nd_passwd}}\"\n}"
+				},
+				"url": {
+					"raw": "https://{{nd_host1}}/bootstrap/verifynode",
+					"protocol": "https",
+					"host": [
+						"{{nd_host1}}"
+					],
+					"path": [
+						"bootstrap",
+						"verifynode"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create Cluster",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.variables.set(\"clusterName_const\", pm.variables.get(\"clusterName\"));",
+							"pm.variables.set(\"SerialNumber_Node1_const\", pm.collectionVariables.get(\"SerialNumber_Node1\"));",
+							"pm.variables.set(\"SerialNumber_Node2_const\", pm.collectionVariables.get(\"SerialNumber_Node2\"));",
+							"pm.variables.set(\"SerialNumber_Node3_const\", pm.collectionVariables.get(\"SerialNumber_Node3\"));",
+							"pm.variables.set(\"nd_host1_const\",pm.variables.get(\"nd_host1\") + \"/24\");",
+							"pm.variables.set(\"nd_host2_const\", pm.variables.get(\"nd_host2\") + \"/24\");",
+							"pm.variables.set(\"nd_host3_const\", pm.variables.get(\"nd_host3\") + \"/24\");",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"clusterConfig\": {\n    \"ntpConfig\": {\n      \"servers\": [\n        {\n          \"host\": \"clock.cisco.com\",\n          \"prefer\": true\n        }\n      ]\n    },\n    \"name\": \"{{clusterName}}\",\n    \"searchDomains\": [\n      \"cisco.com\"\n    ],\n    \"ignoreHosts\": [\n      \"10.48.170.0/24\"\n    ],\n    \"nameServers\": [\n      \"144.254.71.184\"\n    ],\n    \"proxyServers\": [\n      {\n        \"proxyType\": \"HTTP\",\n        \"proxyURL\": \"http://proxy.esl.cisco.com:80\",\n        \"username\": \"\",\n        \"password\": \"\"\n      },\n      {\n        \"proxyType\": \"HTTPS\",\n        \"proxyURL\": \"http://proxy.esl.cisco.com:80\",\n        \"username\": \"\",\n        \"password\": \"\"\n      }\n    ],\n    \"appNetwork\": \"172.17.0.1/16\",\n    \"serviceNetwork\": \"100.80.0.0/16\"\n  },\n  \"nodes\": [\n    {\n      \"hostName\": \"vND1\",\n      \"clusterLeader\": false,\n      \"role\": \"Master\",\n      \"self\": true,\n      \"serialNumber\": \"{{SerialNumber_Node1_const}}\",\n      \"dataNetwork\": {\n        \"ipSubnet\": \"192.168.0.107/24\",\n        \"gateway\": \"192.168.0.1\",\n        \"ipv6Subnet\": \"\",\n        \"gatewayv6\": \"\"\n      },\n      \"managementNetwork\": {\n        \"ipSubnet\": \"{{nd_host1_const}}\",\n        \"gateway\": \"10.48.170.1\",\n        \"ipv6Subnet\": \"\",\n        \"gatewayv6\": \"\"\n      },\n      \"bgpConfig\": {},\n      \"nodeController\": {\n        \"id\": \"vnode\",\n        \"loginUser\": \"rescue-user\"\n      }\n    },\n    {\n      \"hostName\": \"vND2\",\n      \"clusterLeader\": false,\n      \"role\": \"Master\",\n      \"self\": false,\n      \"serialNumber\": \"{{SerialNumber_Node2_const}}\",\n      \"dataNetwork\": {\n        \"ipSubnet\": \"192.168.0.108/24\",\n        \"gateway\": \"192.168.0.1\",\n        \"ipv6Subnet\": \"\",\n        \"gatewayv6\": \"\"\n      },\n      \"managementNetwork\": {\n        \"ipSubnet\": \"{{nd_host2_const}}\",\n        \"gateway\": \"10.48.170.1\",\n        \"ipv6Subnet\": \"\",\n        \"gatewayv6\": \"\"\n      },\n      \"bgpConfig\": {},\n      \"nodeController\": {\n        \"id\": \"vnode\",\n        \"ipAddress\": \"{{nd_host2}}\",\n        \"loginUser\": \"rescue-user\",\n        \"loginPassword\": \"ins3965!\"\n      }\n    },\n    {\n      \"hostName\": \"vND3\",\n      \"clusterLeader\": false,\n      \"role\": \"Master\",\n      \"self\": false,\n      \"serialNumber\": \"{{SerialNumber_Node3_const}}\",\n      \"dataNetwork\": {\n        \"ipSubnet\": \"192.168.0.109/24\",\n        \"gateway\": \"192.168.0.1\",\n        \"ipv6Subnet\": \"\",\n        \"gatewayv6\": \"\"\n      },\n      \"managementNetwork\": {\n        \"ipSubnet\": \"{{nd_host3_const}}\",\n        \"gateway\": \"10.48.170.1\",\n        \"ipv6Subnet\": \"\",\n        \"gatewayv6\": \"\"\n      },\n      \"bgpConfig\": {},\n      \"nodeController\": {\n        \"id\": \"vnode\",\n        \"ipAddress\": \"{{nd_host3}}\",\n        \"loginUser\": \"rescue-user\",\n        \"loginPassword\": \"ins3965!\"\n      }\n    }\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{nd_host1}}/v2/bootstrap/cluster",
+					"protocol": "https",
+					"host": [
+						"{{nd_host1}}"
+					],
+					"path": [
+						"v2",
+						"bootstrap",
+						"cluster"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check Cluster Status",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Check Status",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"if (jsonData.items[0].status.state != \"Active\") {",
+							"    console.log(\"Not Active\")",
+							"    console.log(pm.info.requestName)",
+							"    setTimeout(function(){}, 20000);",
+							"    postman.setNextRequest(pm.info.requestName);",
+							"}",
+							"else {",
+							"    setTimeout(function(){}, 5000);",
+							"    console.log(\"Active\")",
+							"}",
+							"",
+							"//pm.collectionVariables.set(\"site-uuid\", jsonData.status.state);",
+							"//pm.variables.set(\"site-uuid\", jsonData.value.data.uuid);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{nd_host1}}/nexus/infra/api/platform/v1/clusters",
+					"protocol": "https",
+					"host": [
+						"{{nd_host1}}"
+					],
+					"path": [
+						"nexus",
+						"infra",
+						"api",
+						"platform",
+						"v1",
+						"clusters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Download_NDI",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//setTimeout(function(){}, 1200000);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"spec\": {\n    \"importURL\": \"https://engci-maven.cisco.com/artifactory/candid-images-group/D2O-Build/master/{{ndi_version}}/cisco-ndi-dev-6.3.0.{{ndi_version}}.nap\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{nd_host1}}/nexus/infra/api/firmware/v1/servicepackageimports",
+					"protocol": "https",
+					"host": [
+						"{{nd_host1}}"
+					],
+					"path": [
+						"nexus",
+						"infra",
+						"api",
+						"firmware",
+						"v1",
+						"servicepackageimports"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check Download Status",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Check Status",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"if (jsonData.items[0].status.importStatus != \"Completed\") {",
+							"    console.log(\"Not Completed\")",
+							"    console.log(pm.info.requestName)",
+							"    setTimeout(function(){}, 20000);",
+							"    postman.setNextRequest(pm.info.requestName);",
+							"}",
+							"else {",
+							"    setTimeout(function(){}, 5000);",
+							"    console.log(\"Completed\")",
+							"}",
+							"",
+							"//pm.collectionVariables.set(\"site-uuid\", jsonData.status.state);",
+							"//pm.variables.set(\"site-uuid\", jsonData.value.data.uuid);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{nd_host1}}/nexus/infra/api/firmware/v1/servicepackageimports",
+					"protocol": "https",
+					"host": [
+						"{{nd_host1}}"
+					],
+					"path": [
+						"nexus",
+						"infra",
+						"api",
+						"firmware",
+						"v1",
+						"servicepackageimports"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Start_Service",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//setTimeout(function(){}, 1200000);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"vendor\":\"cisco\",\"app\":\"nir\",\"version\":\"6.3.0.{{ndi_version}}\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{nd_host1}}/api/config/createinstance",
+					"protocol": "https",
+					"host": [
+						"{{nd_host1}}"
+					],
+					"path": [
+						"api",
+						"config",
+						"createinstance"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "site-uuid",
+			"value": ""
+		},
+		{
+			"key": "SerialNumber_Node1",
+			"value": ""
+		},
+		{
+			"key": "SerialNumber_Node3",
+			"value": ""
+		},
+		{
+			"key": "SerialNumber_Node2",
+			"value": ""
+		},
+		{
+			"key": "clusterName",
+			"value": ""
+		}
+	]
+}
