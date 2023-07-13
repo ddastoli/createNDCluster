@@ -4,7 +4,12 @@ variable "vsphere_server" {
 }
 
 variable "nd_password" {
-  description = "The password for the DB master user"
+  description = "The password for the ND cluster"
+  type        = string
+}
+
+variable "nd_ova_url" {
+  description = "The link to the ND OVA file"
   type        = string
 }
 

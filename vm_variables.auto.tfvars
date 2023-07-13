@@ -5,6 +5,8 @@ cluster     = "Edge"
 host = "10.48.170.87"
 vm_portgroup1 = "VM Network"
 vm_portgroup2 = "vND_Data"
+nd_password = "ins3965!"
+nd_ova_url = "http://aci-artifactory-001.insieme.local:8082/artifactory/atom-bld/releases/nd/v3.0.0.214/nd-dk9.3.0.0.214.ova"
 
 # List of VMs to deploy in the scenario
 vm_list = {

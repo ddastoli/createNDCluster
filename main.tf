@@ -38,7 +38,7 @@ data "vsphere_ovf_vm_template" "ovfRemote" {
   datastore_id      = data.vsphere_datastore.vsphere_ds.id
   resource_pool_id  = data.vsphere_resource_pool.default.id
   host_system_id    = data.vsphere_host.host.id
-  remote_ovf_url    = "http://aci-artifactory-001.insieme.local:8082/artifactory/atom-bld/releases/nd/v3.0.0.214/nd-dk9.3.0.0.214.ova"
+  remote_ovf_url    = var.nd_ova_url
   ovf_network_map = {
     "VM Network" : data.vsphere_network.vm_portgroup1.id
     "vND_Data" : data.vsphere_network.vm_portgroup2.id
