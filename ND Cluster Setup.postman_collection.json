@@ -172,6 +172,15 @@
 						],
 						"type": "text/javascript"
 					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"setTimeout(function(){}, 240000);"
+						],
+						"type": "text/javascript"
+					}
 				}
 			],
 			"request": {
@@ -179,7 +188,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"clusterConfig\": {\n    \"ntpConfig\": {\n      \"servers\": [\n        {\n          \"host\": \"clock.cisco.com\",\n          \"prefer\": true\n        }\n      ]\n    },\n    \"name\": \"{{clusterName}}\",\n    \"searchDomains\": [\n      \"cisco.com\"\n    ],\n    \"ignoreHosts\": [\n      \"10.48.170.0/24\"\n    ],\n    \"nameServers\": [\n      \"144.254.71.184\"\n    ],\n    \"proxyServers\": [\n      {\n        \"proxyType\": \"HTTP\",\n        \"proxyURL\": \"http://proxy.esl.cisco.com:80\",\n        \"username\": \"\",\n        \"password\": \"\"\n      },\n      {\n        \"proxyType\": \"HTTPS\",\n        \"proxyURL\": \"http://proxy.esl.cisco.com:80\",\n        \"username\": \"\",\n        \"password\": \"\"\n      }\n    ],\n    \"appNetwork\": \"172.17.0.1/16\",\n    \"serviceNetwork\": \"100.80.0.0/16\"\n  },\n  \"nodes\": [\n    {\n      \"hostName\": \"vND1\",\n      \"clusterLeader\": false,\n      \"role\": \"Master\",\n      \"self\": true,\n      \"serialNumber\": \"{{SerialNumber_Node1_const}}\",\n      \"dataNetwork\": {\n        \"ipSubnet\": \"192.168.0.107/24\",\n        \"gateway\": \"192.168.0.1\",\n        \"ipv6Subnet\": \"\",\n        \"gatewayv6\": \"\"\n      },\n      \"managementNetwork\": {\n        \"ipSubnet\": \"{{nd_host1_const}}\",\n        \"gateway\": \"10.48.170.1\",\n        \"ipv6Subnet\": \"\",\n        \"gatewayv6\": \"\"\n      },\n      \"bgpConfig\": {},\n      \"nodeController\": {\n        \"id\": \"vnode\",\n        \"loginUser\": \"rescue-user\"\n      }\n    },\n    {\n      \"hostName\": \"vND2\",\n      \"clusterLeader\": false,\n      \"role\": \"Master\",\n      \"self\": false,\n      \"serialNumber\": \"{{SerialNumber_Node2_const}}\",\n      \"dataNetwork\": {\n        \"ipSubnet\": \"192.168.0.108/24\",\n        \"gateway\": \"192.168.0.1\",\n        \"ipv6Subnet\": \"\",\n        \"gatewayv6\": \"\"\n      },\n      \"managementNetwork\": {\n        \"ipSubnet\": \"{{nd_host2_const}}\",\n        \"gateway\": \"10.48.170.1\",\n        \"ipv6Subnet\": \"\",\n        \"gatewayv6\": \"\"\n      },\n      \"bgpConfig\": {},\n      \"nodeController\": {\n        \"id\": \"vnode\",\n        \"ipAddress\": \"{{nd_host2}}\",\n        \"loginUser\": \"rescue-user\",\n        \"loginPassword\": \"ins3965!\"\n      }\n    },\n    {\n      \"hostName\": \"vND3\",\n      \"clusterLeader\": false,\n      \"role\": \"Master\",\n      \"self\": false,\n      \"serialNumber\": \"{{SerialNumber_Node3_const}}\",\n      \"dataNetwork\": {\n        \"ipSubnet\": \"192.168.0.109/24\",\n        \"gateway\": \"192.168.0.1\",\n        \"ipv6Subnet\": \"\",\n        \"gatewayv6\": \"\"\n      },\n      \"managementNetwork\": {\n        \"ipSubnet\": \"{{nd_host3_const}}\",\n        \"gateway\": \"10.48.170.1\",\n        \"ipv6Subnet\": \"\",\n        \"gatewayv6\": \"\"\n      },\n      \"bgpConfig\": {},\n      \"nodeController\": {\n        \"id\": \"vnode\",\n        \"ipAddress\": \"{{nd_host3}}\",\n        \"loginUser\": \"rescue-user\",\n        \"loginPassword\": \"ins3965!\"\n      }\n    }\n  ]\n}",
+					"raw": "{\n  \"clusterConfig\": {\n    \"ntpConfig\": {\n      \"servers\": [\n        {\n          \"host\": \"clock.cisco.com\",\n          \"prefer\": true\n        }\n      ]\n    },\n    \"name\": \"{{clusterName}}\",\n    \"searchDomains\": [\n      \"cisco.com\"\n    ],\n    \"ignoreHosts\": [\n      \"10.48.0.0/24\",\n      \"engci-maven.cisco.com\"\n    ],\n    \"nameServers\": [\n      \"144.254.71.184\"\n    ],\n    \"proxyServers\": [\n      {\n        \"proxyType\": \"HTTP\",\n        \"proxyURL\": \"http://proxy.esl.cisco.com:80\",\n        \"username\": \"\",\n        \"password\": \"\"\n      },\n      {\n        \"proxyType\": \"HTTPS\",\n        \"proxyURL\": \"http://proxy.esl.cisco.com:80\",\n        \"username\": \"\",\n        \"password\": \"\"\n      }\n    ],\n    \"appNetwork\": \"172.17.0.1/16\",\n    \"serviceNetwork\": \"100.80.0.0/16\"\n  },\n  \"nodes\": [\n    {\n      \"hostName\": \"vND1\",\n      \"clusterLeader\": false,\n      \"role\": \"Master\",\n      \"self\": true,\n      \"serialNumber\": \"{{SerialNumber_Node1_const}}\",\n      \"dataNetwork\": {\n        \"ipSubnet\": \"192.168.0.107/24\",\n        \"gateway\": \"192.168.0.1\",\n        \"ipv6Subnet\": \"\",\n        \"gatewayv6\": \"\"\n      },\n      \"managementNetwork\": {\n        \"ipSubnet\": \"{{nd_host1_const}}\",\n        \"gateway\": \"10.48.170.1\",\n        \"ipv6Subnet\": \"\",\n        \"gatewayv6\": \"\"\n      },\n      \"bgpConfig\": {},\n      \"nodeController\": {\n        \"id\": \"vnode\",\n        \"loginUser\": \"rescue-user\"\n      }\n    },\n    {\n      \"hostName\": \"vND2\",\n      \"clusterLeader\": false,\n      \"role\": \"Master\",\n      \"self\": false,\n      \"serialNumber\": \"{{SerialNumber_Node2_const}}\",\n      \"dataNetwork\": {\n        \"ipSubnet\": \"192.168.0.108/24\",\n        \"gateway\": \"192.168.0.1\",\n        \"ipv6Subnet\": \"\",\n        \"gatewayv6\": \"\"\n      },\n      \"managementNetwork\": {\n        \"ipSubnet\": \"{{nd_host2_const}}\",\n        \"gateway\": \"10.48.170.1\",\n        \"ipv6Subnet\": \"\",\n        \"gatewayv6\": \"\"\n      },\n      \"bgpConfig\": {},\n      \"nodeController\": {\n        \"id\": \"vnode\",\n        \"ipAddress\": \"{{nd_host2}}\",\n        \"loginUser\": \"rescue-user\",\n        \"loginPassword\": \"ins3965!\"\n      }\n    },\n    {\n      \"hostName\": \"vND3\",\n      \"clusterLeader\": false,\n      \"role\": \"Master\",\n      \"self\": false,\n      \"serialNumber\": \"{{SerialNumber_Node3_const}}\",\n      \"dataNetwork\": {\n        \"ipSubnet\": \"192.168.0.109/24\",\n        \"gateway\": \"192.168.0.1\",\n        \"ipv6Subnet\": \"\",\n        \"gatewayv6\": \"\"\n      },\n      \"managementNetwork\": {\n        \"ipSubnet\": \"{{nd_host3_const}}\",\n        \"gateway\": \"10.48.170.1\",\n        \"ipv6Subnet\": \"\",\n        \"gatewayv6\": \"\"\n      },\n      \"bgpConfig\": {},\n      \"nodeController\": {\n        \"id\": \"vnode\",\n        \"ipAddress\": \"{{nd_host3}}\",\n        \"loginUser\": \"rescue-user\",\n        \"loginPassword\": \"ins3965!\"\n      }\n    }\n  ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -196,6 +205,44 @@
 						"v2",
 						"bootstrap",
 						"cluster"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login Again",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"userName\": \"{{nd_username}}\",\n  \"userPasswd\": \"{{nd_passwd}}\",\n  \"domain\": \"{{nd_domain}}\",\n  \"uiLogin\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{nd_host1}}/login",
+					"protocol": "https",
+					"host": [
+						"{{nd_host1}}"
+					],
+					"path": [
+						"login"
 					]
 				}
 			},
@@ -223,16 +270,13 @@
 							"if (jsonData.items[0].status.state != \"Active\") {",
 							"    console.log(\"Not Active\")",
 							"    console.log(pm.info.requestName)",
-							"    setTimeout(function(){}, 20000);",
+							"    setTimeout(function(){}, 30000);",
 							"    postman.setNextRequest(pm.info.requestName);",
 							"}",
 							"else {",
 							"    setTimeout(function(){}, 5000);",
 							"    console.log(\"Active\")",
-							"}",
-							"",
-							"//pm.collectionVariables.set(\"site-uuid\", jsonData.status.state);",
-							"//pm.variables.set(\"site-uuid\", jsonData.value.data.uuid);"
+							"}"
 						],
 						"type": "text/javascript"
 					}
@@ -279,6 +323,17 @@
 					"script": {
 						"exec": [
 							"//setTimeout(function(){}, 1200000);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"console.log(jsonData.metadata.id);",
+							"pm.collectionVariables.set(\"ndi_ServicePackageImport\", jsonData.metadata.id);"
 						],
 						"type": "text/javascript"
 					}
@@ -333,19 +388,21 @@
 							"// Check Status",
 							"",
 							"var jsonData = JSON.parse(responseBody);",
-							"if (jsonData.items[0].status.importStatus != \"Completed\") {",
-							"    console.log(\"Not Completed\")",
-							"    console.log(pm.info.requestName)",
-							"    setTimeout(function(){}, 20000);",
-							"    postman.setNextRequest(pm.info.requestName);",
-							"}",
-							"else {",
-							"    setTimeout(function(){}, 5000);",
-							"    console.log(\"Completed\")",
-							"}",
-							"",
-							"//pm.collectionVariables.set(\"site-uuid\", jsonData.status.state);",
-							"//pm.variables.set(\"site-uuid\", jsonData.value.data.uuid);"
+							"for (let i = 0; i < jsonData.items.length; i++) {",
+							"    console.log(\"iteration\"+i)",
+							"    if (jsonData.items[i].metadata.id == pm.collectionVariables.get(\"ndi_ServicePackageImport\")) {",
+							"        if (jsonData.items[i].status.importStatus != \"Completed\") {",
+							"            console.log(\"Not Completed\")",
+							"            console.log(pm.info.requestName)",
+							"            setTimeout(function(){}, 30000);",
+							"            postman.setNextRequest(pm.info.requestName);",
+							"        }",
+							"        else {",
+							"            setTimeout(function(){}, 5000);",
+							"            console.log(\"Completed\")",
+							"        }",
+							"    }else{console.log(\"exit\"+i)};",
+							"}"
 						],
 						"type": "text/javascript"
 					}
@@ -379,6 +436,109 @@
 						"firmware",
 						"v1",
 						"servicepackageimports"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login Again",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"userName\": \"{{nd_username}}\",\n  \"userPasswd\": \"{{nd_passwd}}\",\n  \"domain\": \"{{nd_domain}}\",\n  \"uiLogin\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{nd_host1}}/login",
+					"protocol": "https",
+					"host": [
+						"{{nd_host1}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check App Status",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Check Status",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"if (jsonData[0].operState != \"Disabled\") {",
+							"    console.log(jsonData[0].operState+\"Not Ready\")",
+							"    setTimeout(function(){}, 30000);",
+							"    postman.setNextRequest(pm.info.requestName);",
+							"}",
+							"else {",
+							"    setTimeout(function(){}, 5000);",
+							"    console.log(jsonData[0].operState+\"Completed\")",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{nd_host1}}/sedgeapi/v1/firmwared/api/applications",
+					"protocol": "https",
+					"host": [
+						"{{nd_host1}}"
+					],
+					"path": [
+						"sedgeapi",
+						"v1",
+						"firmwared",
+						"api",
+						"applications"
 					]
 				}
 			},
@@ -423,6 +583,302 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Remove proxy",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//setTimeout(function(){}, 1200000);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"NDBabylon\",\n  \"appSubnet\": \"172.17.0.1/16\",\n  \"serviceSubnet\": \"100.80.0.0/16\",\n  \"appSubnetv6\": \"\",\n  \"serviceSubnetv6\": \"\",\n  \"networkMode\": \"SingleStack-IPV4\",\n  \"dnsConfig\": {\n    \"domainName\": \"ndbabylon.case.local\",\n    \"nameServers\": [\n      \"144.254.71.184\"\n    ],\n    \"searchDomains\": [\n      \"cisco.com\"\n    ]\n  },\n  \"proxyConfig\": {\n    \"servers\": [\n    ],\n    \"ignoreHosts\": [\n      \"64.103.72.33\"\n    ]\n  },\n  \"operStatus\": {\n    \"version\": \"3.0.0.214\",\n    \"targetVersion\": \"\",\n    \"id\": \"4e444261-6279-6c6f-6e00-000000000000\",\n    \"state\": \"Active\"\n  },\n  \"ntpConfig\": {\n    \"servers\": [\n      {\n        \"host\": \"clock.cisco.com\",\n        \"prefer\": true\n      }\n    ]\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{nd_host1}}/api/config/v2/cluster/",
+					"protocol": "https",
+					"host": [
+						"{{nd_host1}}"
+					],
+					"path": [
+						"api",
+						"config",
+						"v2",
+						"cluster",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Configure proxy",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//setTimeout(function(){}, 1200000);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"NDBabylon\",\n  \"appSubnet\": \"172.17.0.1/16\",\n  \"serviceSubnet\": \"100.80.0.0/16\",\n  \"appSubnetv6\": \"\",\n  \"serviceSubnetv6\": \"\",\n  \"networkMode\": \"SingleStack-IPV4\",\n  \"dnsConfig\": {\n    \"domainName\": \"ndbabylon.case.local\",\n    \"nameServers\": [\n      \"144.254.71.184\"\n    ],\n    \"searchDomains\": [\n      \"cisco.com\"\n    ]\n  },\n  \"proxyConfig\": {\n    \"servers\": [\n      {\n        \"proxyType\": \"HTTP\",\n        \"proxyUrl\": \"http://proxy.esl.cisco.com\"      },\n      {\n        \"proxyType\": \"HTTPS\",\n        \"proxyUrl\": \"http://proxy.esl.cisco.com\"\n      }\n    ],\n    \"ignoreHosts\": [\n      \"engci-maven.cisco.com\",\n      \"10.48.0.0/16\"\n    ]\n  },\n  \"operStatus\": {\n    \"version\": \"3.0.0.214\",\n    \"targetVersion\": \"\",\n    \"id\": \"4e444261-6279-6c6f-6e00-000000000000\",\n    \"state\": \"Active\"\n  },\n  \"ntpConfig\": {\n    \"servers\": [\n      {\n        \"host\": \"clock.cisco.com\",\n        \"prefer\": true\n      }\n    ]\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{nd_host1}}/api/config/v2/cluster/",
+					"protocol": "https",
+					"host": [
+						"{{nd_host1}}"
+					],
+					"path": [
+						"api",
+						"config",
+						"v2",
+						"cluster",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Configure Route1",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"destination\": \"10.11.11.0/24\",\n  \"target\": \"Data\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{nd_host1}}/api/config/routes/",
+					"protocol": "https",
+					"host": [
+						"{{nd_host1}}"
+					],
+					"path": [
+						"api",
+						"config",
+						"routes",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Configure Route2",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"destination\": \"10.11.12.0/24\",\n  \"target\": \"Data\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{nd_host1}}/api/config/routes/",
+					"protocol": "https",
+					"host": [
+						"{{nd_host1}}"
+					],
+					"path": [
+						"api",
+						"config",
+						"routes",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add ACI Site on ND",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"{{ACI_Name}}\",\n  \"siteType\": \"ACI\",\n  \"url\": \"{{ACI_IP}}\",\n  \"verifySecure\": false,\n  \"aci\": {\n    \"userName\": \"{{ACI_User}}\",\n    \"password\": \"{{ACI_Password}}\",\n    \"loginDomain\": \"\"\n  },\n  \"latitude\": \"50.85045\",\n  \"longitude\": \"4.34878\",\n  \"securityDomains\": []\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{nd_host1}}/api/config/v2/addsite/",
+					"protocol": "https",
+					"host": [
+						"{{nd_host1}}"
+					],
+					"path": [
+						"api",
+						"config",
+						"v2",
+						"addsite",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add ACI Site on NDI Preboard",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"{{ACI_Name}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{nd_host1}}/api/config/acipreboard/",
+					"protocol": "https",
+					"host": [
+						"{{nd_host1}}"
+					],
+					"path": [
+						"api",
+						"config",
+						"acipreboard",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add ACI Site on NDI",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"default\",\n    \"type\": \"ONLINE\",\n    \"assuranceEntities\": [\n        {\n            \"category\": \"SITE\",\n            \"name\": \"{{ACI_Name}}\",\n            \"username\": \"{{ACI_User}}\",\n            \"password\": \"{{ACI_Password}}\",\n            \"status\": \"ENABLED\",\n            \"type\": \"CISCO_ACI\",\n            \"streamingOnIPv6\": false\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{nd_host1}}/sedgeapi/v1/cisco-nir/api/api/telemetry/v2/config/insightsGroup/default",
+					"protocol": "https",
+					"host": [
+						"{{nd_host1}}"
+					],
+					"path": [
+						"sedgeapi",
+						"v1",
+						"cisco-nir",
+						"api",
+						"api",
+						"telemetry",
+						"v2",
+						"config",
+						"insightsGroup",
+						"default"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"variable": [
@@ -444,6 +900,10 @@
 		},
 		{
 			"key": "clusterName",
+			"value": ""
+		},
+		{
+			"key": "ndi_ServicePackageImport",
 			"value": ""
 		}
 	]
