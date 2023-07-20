@@ -99,3 +99,73 @@ resource "vsphere_virtual_machine" "vmFromRemoteOvf" {
     ]
   }
 }
+
+
+data "vsphere_ovf_vm_template" "ovfRemoteData" {
+  name              = "vND_Data"
+  disk_provisioning = "thin"
+  datastore_id      = data.vsphere_datastore.vsphere_ds.id
+  resource_pool_id  = data.vsphere_resource_pool.default.id
+  host_system_id    = data.vsphere_host.host.id
+  remote_ovf_url    = var.nd_ova_url
+  deployment_option = "Data"
+  ovf_network_map = {
+    "VM Network" : data.vsphere_network.vm_portgroup1.id
+    "vND_Data" : data.vsphere_network.vm_portgroup2.id
+  }
+}
+
+
+## Deployment of VM from Remote OVF
+resource "vsphere_virtual_machine" "vmFromRemoteOvfData" {
+  for_each             = var.vm_list_data
+  name                 = each.value.vm_name
+  datacenter_id        = data.vsphere_datacenter.vsphere_dc.id
+  datastore_id         = data.vsphere_datastore.vsphere_ds.id
+  host_system_id       = data.vsphere_host.host.id
+  resource_pool_id     = data.vsphere_resource_pool.default.id
+  num_cpus             = data.vsphere_ovf_vm_template.ovfRemoteData.num_cpus
+  num_cores_per_socket = data.vsphere_ovf_vm_template.ovfRemoteData.num_cores_per_socket
+  memory               = data.vsphere_ovf_vm_template.ovfRemoteData.memory
+  guest_id             = data.vsphere_ovf_vm_template.ovfRemoteData.guest_id
+  firmware             = data.vsphere_ovf_vm_template.ovfRemoteData.firmware
+  scsi_type            = data.vsphere_ovf_vm_template.ovfRemoteData.scsi_type
+  nested_hv_enabled    = data.vsphere_ovf_vm_template.ovfRemoteData.nested_hv_enabled
+  dynamic "network_interface" {
+    for_each = data.vsphere_ovf_vm_template.ovfRemote.ovf_network_map
+    content {
+      network_id = network_interface.value
+    }
+  }
+  wait_for_guest_net_timeout = 0
+  wait_for_guest_ip_timeout  = 0
+
+  ovf_deploy {
+    allow_unverified_ssl_cert = false
+    remote_ovf_url            = data.vsphere_ovf_vm_template.ovfRemote.remote_ovf_url
+    disk_provisioning         = data.vsphere_ovf_vm_template.ovfRemote.disk_provisioning
+    ovf_network_map           = {
+      "Network 1" = data.vsphere_network.vm_portgroup1.id
+      "Network 2" = data.vsphere_network.vm_portgroup2.id
+    }
+    #ovf_network_map           = data.vsphere_ovf_vm_template.ovfRemote.ovf_network_map
+  }
+
+  vapp {
+    properties = {
+      "dataDiskSizeApp"  = "500",
+      "mgmt_ip" = each.value.vm_network_ip,
+      "gw_ip"   = each.value.vm_network_gateway,
+      "adminPassword"       = var.nd_password
+    }
+  }
+  lifecycle {
+    ignore_changes = [
+      annotation,
+      disk[0].io_share_count,
+      disk[1].io_share_count,
+      disk[2].io_share_count,
+      vapp[0].properties,
+    ]
+  }
+}

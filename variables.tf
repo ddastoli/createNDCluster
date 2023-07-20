@@ -58,6 +58,15 @@ variable "vm_list" {
   }))
 }
 
+variable "vm_list_data" {
+  type = map(object({
+    vm_name            = string
+    vm_network_ip      = string
+    vm_network_gateway = string
+    vm_firstMaster     = bool
+  }))
+}
+
 variable "vm_domain" {
   description = "Domain name to be configured in the VM. Optional, if ommited lab.local will be used"
   default = "lab.local"

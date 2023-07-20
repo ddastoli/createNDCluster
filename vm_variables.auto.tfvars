@@ -6,7 +6,7 @@ host = "10.48.170.87"
 vm_portgroup1 = "VM Network"
 vm_portgroup2 = "vND_Data"
 nd_password = "ins3965!"
-nd_ova_url = "http://aci-artifactory-001.insieme.local:8082/artifactory/atom-bld/releases/nd/v3.0.0.214/nd-dk9.3.0.0.214.ova"
+nd_ova_url = "http://aci-artifactory-001.insieme.local:8082/artifactory/atom-bld/releases/nd/v3.0.0.220/nd-dk9.3.0.0.220.ova"
 
 # List of VMs to deploy in the scenario
 vm_list = {
@@ -25,6 +25,27 @@ vm_list = {
   "vnd3" = {
     vm_name            = "vnd3"
     vm_network_ip      = "10.48.170.109/24"
+    vm_network_gateway = "10.48.170.1"
+    vm_firstMaster     = false
+  }
+}
+
+vm_list_data = {
+  "vnd4" = {
+    vm_name            = "vnd4"
+    vm_network_ip      = "10.48.170.110/24"
+    vm_network_gateway = "10.48.170.1"
+    vm_firstMaster     = false
+  },
+  "vnd5" = {
+    vm_name            = "vnd5"
+    vm_network_ip      = "10.48.170.111/24"
+    vm_network_gateway = "10.48.170.1"
+    vm_firstMaster     = false
+  },
+  "vnd6" = {
+    vm_name            = "vnd6"
+    vm_network_ip      = "10.48.170.112/24"
     vm_network_gateway = "10.48.170.1"
     vm_firstMaster     = false
   }
