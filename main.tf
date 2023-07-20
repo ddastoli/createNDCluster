@@ -7,8 +7,18 @@ data "vsphere_datastore" "vsphere_ds" {
   datacenter_id = data.vsphere_datacenter.vsphere_dc.id
 }
 
+data "vsphere_datastore" "vsphere_ds2" {
+  name          = var.vsphere_ds2
+  datacenter_id = data.vsphere_datacenter.vsphere_dc.id
+}
+
 data "vsphere_host" "host" {
   name          = var.host
+  datacenter_id = data.vsphere_datacenter.vsphere_dc.id
+}
+
+data "vsphere_host" "host2" {
+  name          = var.host2
   datacenter_id = data.vsphere_datacenter.vsphere_dc.id
 }
 
@@ -106,7 +116,7 @@ data "vsphere_ovf_vm_template" "ovfRemoteData" {
   disk_provisioning = "thin"
   datastore_id      = data.vsphere_datastore.vsphere_ds.id
   resource_pool_id  = data.vsphere_resource_pool.default.id
-  host_system_id    = data.vsphere_host.host.id
+  host_system_id    = data.vsphere_host.host2.id
   remote_ovf_url    = var.nd_ova_url
   deployment_option = "Data"
   ovf_network_map = {
@@ -122,7 +132,7 @@ resource "vsphere_virtual_machine" "vmFromRemoteOvfData" {
   name                 = each.value.vm_name
   datacenter_id        = data.vsphere_datacenter.vsphere_dc.id
   datastore_id         = data.vsphere_datastore.vsphere_ds.id
-  host_system_id       = data.vsphere_host.host.id
+  host_system_id       = data.vsphere_host.host2.id
   resource_pool_id     = data.vsphere_resource_pool.default.id
   num_cpus             = data.vsphere_ovf_vm_template.ovfRemoteData.num_cpus
   num_cores_per_socket = data.vsphere_ovf_vm_template.ovfRemoteData.num_cores_per_socket
