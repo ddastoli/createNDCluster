@@ -1,10 +1,8 @@
 # vSphere variables
 vsphere_dc          = "DatacenterACI"
 vsphere_ds          = "Server2_M6_disk2"
-vsphere_ds2          = "DIsk2M6_88"
 cluster     = "Edge"
 host = "10.48.170.87"
-host2 = "10.48.170.88"
 
 vm_portgroup1 = "VM Network"
 vm_portgroup2 = "vND_Data"
