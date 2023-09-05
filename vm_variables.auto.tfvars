@@ -32,24 +32,3 @@ vm_list = {
     vm_firstMaster     = false
   }
 }
-
-vm_list_data = {
-  "vnd4" = {
-    vm_name            = "vnd4"
-    vm_network_ip      = "10.48.170.110/24"
-    vm_network_gateway = "10.48.170.1"
-    vm_firstMaster     = false
-  },
-  "vnd5" = {
-    vm_name            = "vnd5"
-    vm_network_ip      = "10.48.170.111/24"
-    vm_network_gateway = "10.48.170.1"
-    vm_firstMaster     = false
-  },
-  "vnd6" = {
-    vm_name            = "vnd6"
-    vm_network_ip      = "10.48.170.112/24"
-    vm_network_gateway = "10.48.170.1"
-    vm_firstMaster     = false
-  }
-}
