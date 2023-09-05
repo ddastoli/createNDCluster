@@ -41,15 +41,6 @@ variable "host" {
     default = null 
 }
 
-variable "vsphere_ds2" {
-    description = "Datastore name in vSphere vCenter where the VM will be stored"
-}
-
-variable "host2" { 
-    description = "Host name in vSphere vCenter where the VM will be deployed. Optional, if ommited the host will be selected automatically"
-    default = null 
-}
-
 
 variable "vm_portgroup1" {
     description = "VM Template name that will be cloned to create the new VM"
@@ -60,15 +51,6 @@ variable "vm_portgroup2" {
 }
 
 variable "vm_list" {
-  type = map(object({
-    vm_name            = string
-    vm_network_ip      = string
-    vm_network_gateway = string
-    vm_firstMaster     = bool
-  }))
-}
-
-variable "vm_list_data" {
   type = map(object({
     vm_name            = string
     vm_network_ip      = string
