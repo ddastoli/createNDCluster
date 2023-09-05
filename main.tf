@@ -7,18 +7,8 @@ data "vsphere_datastore" "vsphere_ds" {
   datacenter_id = data.vsphere_datacenter.vsphere_dc.id
 }
 
-data "vsphere_datastore" "vsphere_ds2" {
-  name          = var.vsphere_ds2
-  datacenter_id = data.vsphere_datacenter.vsphere_dc.id
-}
-
 data "vsphere_host" "host" {
   name          = var.host
-  datacenter_id = data.vsphere_datacenter.vsphere_dc.id
-}
-
-data "vsphere_host" "host2" {
-  name          = var.host2
   datacenter_id = data.vsphere_datacenter.vsphere_dc.id
 }
 
