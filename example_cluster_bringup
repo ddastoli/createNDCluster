@@ -1,0 +1,132 @@
+{
+  "clusterConfig": {
+    "ntpConfig": {
+      "servers": [
+        {
+          "host": "clock.cisco.com",
+          "prefer": true
+        }
+      ]
+    },
+    "persona": "LAN",
+    "name": "{{clusterName}}",
+    "searchDomains": [
+      "cisco.com"
+    ],
+    "ignoreHosts": [
+      "10.48.0.0/24",
+      "engci-maven.cisco.com"
+    ],
+    "nameServers": [
+      "144.254.71.184"
+    ],
+    "proxyServers": [
+      {
+        "proxyType": "HTTP",
+        "proxyURL": "http://proxy.esl.cisco.com:80",
+        "username": "",
+        "password": ""
+      },
+      {
+        "proxyType": "HTTPS",
+        "proxyURL": "http://proxy.esl.cisco.com:80",
+        "username": "",
+        "password": ""
+      }
+    ],
+    "appNetwork": "172.17.0.1/16",
+    "serviceNetwork": "100.80.0.0/16",
+    "externalServices": [
+        {
+            "target": "Data",
+            "pool": [
+                "192.168.0.173",
+                "192.168.0.174",
+                "192.168.0.175",
+                "192.168.0.176",
+                "192.168.0.177"
+            ]
+        }
+    ]
+},
+
+
+  "nodes": [
+    {
+      "hostName": "vND1",
+      "clusterLeader": false,
+      "role": "Master",
+      "self": true,
+      "serialNumber": "{{SerialNumber_Node1_const}}",
+      "dataNetwork": {
+        "ipSubnet": "192.168.0.107/24",
+        "gateway": "192.168.0.1",
+        "ipv6Subnet": "",
+        "gatewayv6": ""
+      },
+      "managementNetwork": {
+        "ipSubnet": "{{nd_host1_const}}",
+        "gateway": "10.48.170.1",
+        "ipv6Subnet": "",
+        "gatewayv6": ""
+      },
+      "bgpConfig": {},
+      "nodeController": {
+        "id": "vnode",
+        "loginUser": "rescue-user"
+      }
+    },
+    {
+      "hostName": "vND2",
+      "clusterLeader": false,
+      "role": "Master",
+      "self": false,
+      "serialNumber": "{{SerialNumber_Node2_const}}",
+      "dataNetwork": {
+        "ipSubnet": "192.168.0.108/24",
+        "gateway": "192.168.0.1",
+        "ipv6Subnet": "",
+        "gatewayv6": ""
+      },
+      "managementNetwork": {
+        "ipSubnet": "{{nd_host2_const}}",
+        "gateway": "10.48.170.1",
+        "ipv6Subnet": "",
+        "gatewayv6": ""
+      },
+      "bgpConfig": {},
+      "nodeController": {
+        "id": "vnode",
+        "ipAddress": "{{nd_host2}}",
+        "loginUser": "rescue-user",
+        "loginPassword": "ins3965!"
+      }
+    },
+    {
+      "hostName": "vND3",
+      "clusterLeader": false,
+      "role": "Master",
+      "self": false,
+      "serialNumber": "{{SerialNumber_Node3_const}}",
+      "dataNetwork": {
+        "ipSubnet": "192.168.0.109/24",
+        "gateway": "192.168.0.1",
+        "ipv6Subnet": "",
+        "gatewayv6": ""
+      },
+      "managementNetwork": {
+        "ipSubnet": "{{nd_host3_const}}",
+        "gateway": "10.48.170.1",
+        "ipv6Subnet": "",
+        "gatewayv6": ""
+      },
+      "bgpConfig": {},
+      "nodeController": {
+        "id": "vnode",
+        "ipAddress": "{{nd_host3}}",
+        "loginUser": "rescue-user",
+        "loginPassword": "ins3965!"
+      }
+    }
+  ]
+}
