@@ -1,0 +1,158 @@
+{
+    "clusterConfig": {
+        "name": "cluster-anon",
+        "ntpConfig": {
+            "servers": [
+                {
+                    "host": "ntp.example.com",
+                    "prefer": true
+                }
+            ]
+        },
+        "deploymentScaleProfile": {},
+        "persona": "LAN",
+        "searchDomains": [
+            "example.com"
+        ],
+        "ignoreHosts": [
+            "10.0.10.0/24",
+            "10.0.20.33",
+            "10.0.30.0/24"
+        ],
+        "nameServers": [
+            "203.0.113.53"
+        ],
+        "proxyServers": [
+            {
+                "proxyType": "HTTP",
+                "proxyUrl": "http://proxy.example.com:80",
+                "username": "",
+                "password": ""
+            },
+            {
+                "proxyType": "HTTPS",
+                "proxyUrl": "http://proxy.example.com:80",
+                "username": "",
+                "password": ""
+            }
+        ],
+        "appNetwork": "10.10.0.1/16",
+        "serviceNetwork": "10.20.0.0/16",
+        "externalServices": [
+            {
+                "target": "Data",
+                "pool": [
+                    "198.51.100.10",
+                    "198.51.100.11",
+                    "198.51.100.12",
+                    "198.51.100.13",
+                    "198.51.100.14"
+                ]
+            }
+        ]
+    },
+    "nodes": [
+        {
+            "hostName": "node-1",
+            "clusterLeader": false,
+            "role": "Master",
+            "self": true,
+            "serialNumber": "{{SerialNumber_Node1}}",
+            "dataNetwork": {
+                "ipSubnet": "198.51.100.21/24",
+                "gateway": "198.51.100.1",
+                "ipv6Subnet": "",
+                "gatewayv6": ""
+            },
+            "managementNetwork": {
+                "ipSubnet": "{{nd_host1}}/24",
+                "gateway": "10.0.30.1",
+                "ipv6Subnet": "",
+                "gatewayv6": ""
+            },
+            "bgpConfig": {
+                "as": 3001,
+                "peers": [
+                    {
+                        "ip": "198.51.100.1",
+                        "as": 3000
+                    }
+                ]
+            },
+            "nodeController": {
+                "id": "vnode",
+                "ipAddress": "{{nd_host1}}",
+                "loginUser": "rescue-user",
+                "loginPassword": "<REDACTED_PASSWORD>"
+            }
+        },
+        {
+            "hostName": "node-2",
+            "clusterLeader": false,
+            "role": "Master",
+            "self": false,
+            "serialNumber": "{{SerialNumber_Node2}}",
+            "dataNetwork": {
+                "ipSubnet": "198.51.100.22/24",
+                "gateway": "198.51.100.1",
+                "ipv6Subnet": "",
+                "gatewayv6": ""
+            },
+            "managementNetwork": {
+                "ipSubnet": "{{nd_host2}}/24",
+                "gateway": "10.0.30.1",
+                "ipv6Subnet": "",
+                "gatewayv6": ""
+            },
+            "bgpConfig": {
+                "as": 3001,
+                "peers": [
+                    {
+                        "ip": "198.51.100.1",
+                        "as": 3000
+                    }
+                ]
+            },
+            "nodeController": {
+                "id": "vnode",
+                "ipAddress": "{{nd_host2}}",
+                "loginUser": "rescue-user",
+                "loginPassword": "<REDACTED_PASSWORD>"
+            }
+        },
+        {
+            "hostName": "node-3",
+            "clusterLeader": false,
+            "role": "Master",
+            "self": false,
+            "serialNumber": "{{SerialNumber_Node3}}",
+            "dataNetwork": {
+                "ipSubnet": "198.51.100.23/24",
+                "gateway": "198.51.100.1",
+                "ipv6Subnet": "",
+                "gatewayv6": ""
+            },
+            "managementNetwork": {
+                "ipSubnet": "{{nd_host3}}/24",
+                "gateway": "10.0.30.1",
+                "ipv6Subnet": "",
+                "gatewayv6": ""
+            },
+            "bgpConfig": {
+                "as": 3001,
+                "peers": [
+                    {
+                        "ip": "198.51.100.1",
+                        "as": 3000
+                    }
+                ]
+            },
+            "nodeController": {
+                "id": "vnode",
+                "ipAddress": "{{nd_host3}}",
+                "loginUser": "rescue-user",
+                "loginPassword": "<REDACTED_PASSWORD>"
+            }
+        }
+    ]
+}
