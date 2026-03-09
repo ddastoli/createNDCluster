@@ -1,0 +1,223 @@
+{
+  "info": {
+    "_postman_id": "46203e3b-0c00-4e5c-aca4-18ca45b7faa5",
+    "name": "ND Cluster BringUp 4.2",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "582543"
+  },
+  "item": [
+    {
+      "name": "Login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userName\": \"{{nd_username}}\",\n  \"userPasswd\": \"{{nd_passwd}}\",\n  \"domain\": \"{{nd_domain}}\",\n  \"uiLogin\": false\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://{{nd_host1}}/login",
+          "protocol": "https",
+          "host": [
+            "{{nd_host1}}"
+          ],
+          "path": [
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Node0 Information",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Save Node2 SN",
+              "var jsonData = JSON.parse(responseBody);",
+              "pm.collectionVariables.set(\"SerialNumber_Node1\", jsonData.SerialNumber);"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"id\": \"vnode\", \n    \"ipAddress\": \"{{nd_host1}}\", \n    \"loginUser\": \"rescue-user\", \n    \"loginPassword\": \"{{nd_passwd}}\"\n}"
+        },
+        "url": {
+          "raw": "https://{{nd_host1}}/bootstrap/verifynode",
+          "protocol": "https",
+          "host": [
+            "{{nd_host1}}"
+          ],
+          "path": [
+            "bootstrap",
+            "verifynode"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Node1 Information",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Save Node2 SN",
+              "var jsonData = JSON.parse(responseBody);",
+              "pm.collectionVariables.set(\"SerialNumber_Node2\", jsonData.SerialNumber);"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"id\": \"vnode\", \n    \"ipAddress\": \"{{nd_host2}}\", \n    \"loginUser\": \"rescue-user\", \n    \"loginPassword\": \"{{nd_passwd}}\"\n}"
+        },
+        "url": {
+          "raw": "https://{{nd_host1}}/bootstrap/verifynode",
+          "protocol": "https",
+          "host": [
+            "{{nd_host1}}"
+          ],
+          "path": [
+            "bootstrap",
+            "verifynode"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Node2 Information",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Save Node2 SN",
+              "var jsonData = JSON.parse(responseBody);",
+              "pm.collectionVariables.set(\"SerialNumber_Node3\", jsonData.SerialNumber);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"id\": \"vnode\", \n    \"ipAddress\": \"{{nd_host3}}\", \n    \"loginUser\": \"rescue-user\", \n    \"loginPassword\": \"{{nd_passwd}}\"\n}"
+        },
+        "url": {
+          "raw": "https://{{nd_host1}}/bootstrap/verifynode",
+          "protocol": "https",
+          "host": [
+            "{{nd_host1}}"
+          ],
+          "path": [
+            "bootstrap",
+            "verifynode"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "create Cluster 4.x vND",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.variables.set(\"clusterName_const\", pm.variables.get(\"clusterName\"));",
+              "pm.variables.set(\"SerialNumber_Node1_const\", pm.collectionVariables.get(\"SerialNumber_Node1\"));",
+              "pm.variables.set(\"SerialNumber_Node2_const\", pm.collectionVariables.get(\"SerialNumber_Node2\"));",
+              "pm.variables.set(\"SerialNumber_Node3_const\", pm.collectionVariables.get(\"SerialNumber_Node3\"));",
+              "pm.variables.set(\"SerialNumber_Node4_const\", pm.collectionVariables.get(\"SerialNumber_Node4\"));",
+              "pm.variables.set(\"SerialNumber_Node5_const\", pm.collectionVariables.get(\"SerialNumber_Node5\"));",
+              "pm.variables.set(\"SerialNumber_Node6_const\", pm.collectionVariables.get(\"SerialNumber_Node6\"));",
+              "pm.variables.set(\"nd_host1_const\", pm.variables.get(\"nd_host1\") + \"/24\");",
+              "pm.variables.set(\"nd_host2_const\", pm.variables.get(\"nd_host2\") + \"/24\");",
+              "pm.variables.set(\"nd_host3_const\", pm.variables.get(\"nd_host3\") + \"/24\");",
+              "pm.variables.set(\"nd_host4_const\", pm.variables.get(\"nd_host4\") + \"/24\");",
+              "pm.variables.set(\"nd_host5_const\", pm.variables.get(\"nd_host5\") + \"/24\");",
+              "pm.variables.set(\"nd_host6_const\", pm.variables.get(\"nd_host6\") + \"/24\");"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"clusterConfig\": {\n        \"name\": \"vND-M7\",\n        \"ntpConfig\": {\n            \"servers\": [\n                {\n                    \"host\": \"clock.cisco.com\",\n                    \"prefer\": true\n                }\n            ]\n        },\n        \"deploymentScaleProfile\": {},\n        \"persona\": \"LAN\",\n        \"searchDomains\": [\n            \"cisco.com\"\n        ],\n        \"ignoreHosts\": [\n            \"10.48.170.0/24\",\n            \"172.31.165.33\",\n            \"10.48.169.0/24\"\n        ],\n        \"nameServers\": [\n            \"144.254.71.184\"\n        ],\n        \"proxyServers\": [\n            {\n                \"proxyType\": \"HTTP\",\n                \"proxyUrl\": \"http://proxy.esl.cisco.com:80\",\n                \"username\": \"\",\n                \"password\": \"\"\n            },\n            {\n                \"proxyType\": \"HTTPS\",\n                \"proxyUrl\": \"http://proxy.esl.cisco.com:80\",\n                \"username\": \"\",\n                \"password\": \"\"\n            }\n        ],\n        \"appNetwork\": \"172.17.0.1/16\",\n        \"serviceNetwork\": \"100.80.0.0/16\",\n        \"externalServices\": [\n            {\n                \"target\": \"Data\",\n                \"pool\": [\n                    \"192.168.200.0\",\n                    \"192.168.200.1\",\n                    \"192.168.200.2\",\n                    \"192.168.200.3\",\n                    \"192.168.200.4\"\n                ]\n            }\n        ]\n    },\n    \"nodes\": [\n        {\n            \"hostName\": \"vND1\",\n            \"clusterLeader\": false,\n            \"role\": \"Master\",\n            \"self\": true,\n            \"serialNumber\": \"{{SerialNumber_Node1}}\",\n            \"dataNetwork\": {\n                \"ipSubnet\": \"192.168.201.2/24\",\n                \"gateway\": \"192.168.201.1\",\n                \"ipv6Subnet\": \"\",\n                \"gatewayv6\": \"\"\n            },\n            \"managementNetwork\": {\n                \"ipSubnet\": \"{{nd_host1}}/24\",\n                \"gateway\": \"10.48.169.1\",\n                \"ipv6Subnet\": \"\",\n                \"gatewayv6\": \"\"\n            },\n            \"bgpConfig\": {\n                \"as\": 3001,\n                \"peers\": [\n                    {\n                        \"ip\": \"192.168.201.1\",\n                        \"as\": 3000\n                    }\n                ]\n            },\n            \"nodeController\": {\n                \"id\": \"vnode\",\n                \"ipAddress\": \"{{nd_host1}}\",\n                \"loginUser\": \"rescue-user\",\n                \"loginPassword\": \"ins3965!\"\n            }\n        },\n        {\n            \"hostName\": \"vND2\",\n            \"clusterLeader\": false,\n            \"role\": \"Master\",\n            \"self\": false,\n            \"serialNumber\": \"{{SerialNumber_Node2}}\",\n            \"dataNetwork\": {\n                \"ipSubnet\": \"192.168.202.2/24\",\n                \"gateway\": \"192.168.202.1\",\n                \"ipv6Subnet\": \"\",\n                \"gatewayv6\": \"\"\n            },\n            \"managementNetwork\": {\n                \"ipSubnet\": \"{{nd_host2}}/24\",\n                \"gateway\": \"10.48.169.1\",\n                \"ipv6Subnet\": \"\",\n                \"gatewayv6\": \"\"\n            },\n            \"bgpConfig\": {\n                \"as\": 3001,\n                \"peers\": [\n                    {\n                        \"ip\": \"192.168.202.1\",\n                        \"as\": 3000\n                    }\n                ]\n            },\n            \"nodeController\": {\n                \"id\": \"vnode\",\n                \"ipAddress\": \"{{nd_host2}}\",\n                \"loginUser\": \"rescue-user\",\n                \"loginPassword\": \"ins3965!\"\n            }\n        },\n        {\n            \"hostName\": \"vND3\",\n            \"clusterLeader\": false,\n            \"role\": \"Master\",\n            \"self\": false,\n            \"serialNumber\": \"{{SerialNumber_Node3}}\",\n            \"dataNetwork\": {\n                \"ipSubnet\": \"192.168.203.2/24\",\n                \"gateway\": \"192.168.203.1\",\n                \"ipv6Subnet\": \"\",\n                \"gatewayv6\": \"\"\n            },\n            \"managementNetwork\": {\n                \"ipSubnet\": \"{{nd_host3}}/24\",\n                \"gateway\": \"10.48.169.1\",\n                \"ipv6Subnet\": \"\",\n                \"gatewayv6\": \"\"\n            },\n            \"bgpConfig\": {\n                \"as\": 3001,\n                \"peers\": [\n                    {\n                        \"ip\": \"192.168.203.1\",\n                        \"as\": 3000\n                    }\n                ]\n            },\n            \"nodeController\": {\n                \"id\": \"vnode\",\n                \"ipAddress\": \"{{nd_host3}}\",\n                \"loginUser\": \"rescue-user\",\n                \"loginPassword\": \"ins3965!\"\n            }\n        }\n    ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://{{nd_host1}}/v2/bootstrap/cluster",
+          "protocol": "https",
+          "host": [
+            "{{nd_host1}}"
+          ],
+          "path": [
+            "v2",
+            "bootstrap",
+            "cluster"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
